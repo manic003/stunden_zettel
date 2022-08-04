@@ -1,0 +1,3 @@
+[submodule "libreofficepythonmacros"]
+	path = libreofficepythonmacros
+	url = https://github.com/rebahozkoc/libreofficepythonmacros
