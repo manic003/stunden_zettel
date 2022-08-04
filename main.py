@@ -12,13 +12,17 @@ import sys
 
 
 def clean_exit():
+    try:
         input("Please close libreoffice first!")
+    except EOFError:
+        print(" ")
 
+        
 atexit.register(clean_exit)
 
 def signal_handler(sig, frame):
-    clean_exit()
-    sys.exit(0)
+    print("Please use ctrl-d to exit!")
+
 
 signal.signal(signal.SIGINT, signal_handler)
 #signal.pause()
@@ -29,9 +33,11 @@ signal.signal(signal.SIGINT, signal_handler)
 
 ODS_TEMPLATE = "ods_files/template/template.ods"
 
+choice= input("Run libreoffice? [y/n] default yes")
+if not (choice == "n" or choice=="no"):
 # open sheet in libreoffice...
-cmd=f'soffice {ODS_TEMPLATE} --calc --accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"'
-os.popen(cmd) # todo... besser iwie forken oder so? kp
+    cmd=f'soffice {ODS_TEMPLATE} --calc --accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"'
+    os.popen(cmd) # todo... besser iwie forken oder so? kp
 
 
 input("LibreOffice is opening 'template.ods', continue with enter")
