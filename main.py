@@ -1,17 +1,41 @@
 import os
 import time
 import uno # get the uno component context from the PyUNO runtime
-import datetime
+import datetime as dt
+from gcal import *
+import atexit
+
+
+import signal
+import sys
+
+
+
+def clean_exit():
+        input("Please close libreoffice first!")
+
+atexit.register(clean_exit)
+
+def signal_handler(sig, frame):
+    clean_exit()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+#signal.pause()
+
+
+
+
 
 ODS_TEMPLATE = "ods_files/template/template.ods"
 
 # open sheet in libreoffice...
 cmd=f'soffice {ODS_TEMPLATE} --calc --accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"'
-
-
 os.popen(cmd) # todo... besser iwie forken oder so? kp
 
-time.sleep(2)
+
+input("LibreOffice is opening 'template.ods', continue with enter")
+
 localContext = uno.getComponentContext() # create the UnoUrlResolver
 resolver = localContext.ServiceManager.createInstanceWithContext(
 				"com.sun.star.bridge.UnoUrlResolver", localContext ) # connect to the running office
@@ -41,6 +65,8 @@ COL_NOTE = "E"
 CELL_MONTH_YEAR = "E7"
 CELL_PROJECT_NAME = "D7"
 
+
+
 def add_times(day_of_month: int, start: str, end: str, note=""):
 
     c_start = active_sheet.getCellRangeByName(COL_START + str(day_of_month+10))
@@ -54,6 +80,16 @@ def add_times(day_of_month: int, start: str, end: str, note=""):
 
 
 
+def add_from_gcal(month:int , query=""):
+    events = get_events_month(month,query)
+    for i in events:
+        add_times(i.start.day, f"{i.start.hour}:{i.start.minute}", f"{i.end.hour}:{i.end.minute}",i.summary)
+
 
 def add_datetime_times(date_start, date_end, note):
     pass
+
+
+
+
+
