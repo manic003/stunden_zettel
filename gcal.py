@@ -1,7 +1,7 @@
 from gcsa.event import Event
 from gcsa.google_calendar import GoogleCalendar
 from datetime import datetime as dt
-
+from datetime import timedelta
 calendar_haushalt = GoogleCalendar("regg900o16pp20bc9fcbnud2gg@group.calendar.google.com")
 calendar_arbeit= GoogleCalendar('raspmaxcal@gmail.com')
 
@@ -37,13 +37,29 @@ def return_event_on_day(datetime_date):
             return i
 
 
-def get_events_month(month:int,query=""):
+def get_events_month(month:int,query="",year=None):
+    """
+        returns the events of calendar_arbeit for the given month, optional filtered by query parameter.
+    
+        month : int     the month for which you want the events (current year)
+        query : str     an optional query parameter (summary field of calender) caseinsensitiv 
+        year  : int     default year is current year, if you want to get events from an recent year use this parameter
+    """
+
     t = dt.today()
+
+    if not year:
+        year = t.year
+
+    beginn_of_month = dt(year,month,1)
+    end_of_month = dt(year,month+1,1) - timedelta(days=1)
+
+
 #    for i in calendar_arbeit.get_events(time_start, time_end):
     if query:
-        x = calendar_arbeit.get_events(dt(t.year,month,1,0,0),t,query=query)
+        x = calendar_arbeit.get_events( beginn_of_month, end_of_month,query=query)
     else:
-        x = calendar_arbeit.get_events(dt(t.year,month,1,0,0),t)
+        x = calendar_arbeit.get_events( beginn_of_month, end_of_month)
 
     return list(x)
     

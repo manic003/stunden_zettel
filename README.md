@@ -1,12 +1,33 @@
 
 # Stundenzettel - easy Stundenerfassung
 ## todo
-- wie der google cal geht weiss ich jetzt
-- noch start ende extrahieren und dann automatisch in Tabelle eintragen fertig..
 
-- damit kann man dann eigentlich gut arbeiten... das sollte auch für den vse so reichen..
+    - bei 00 kommt nur 0 in die tabelle..
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PLANUNG
 - Eingabe der Termine:
     - automatisch aus googlecal
     - manuell per command line / gui ?

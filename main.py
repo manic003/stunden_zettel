@@ -33,7 +33,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 ODS_TEMPLATE = "ods_files/template/template.ods"
 
-choice= input("Run libreoffice? [y/n] default yes")
+choice= input("Run libreoffice? [y/n] default yes: ")
 if not (choice == "n" or choice=="no"):
 # open sheet in libreoffice...
     cmd=f'soffice {ODS_TEMPLATE} --calc --accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"'
@@ -46,7 +46,7 @@ localContext = uno.getComponentContext() # create the UnoUrlResolver
 resolver = localContext.ServiceManager.createInstanceWithContext(
 				"com.sun.star.bridge.UnoUrlResolver", localContext ) # connect to the running office
 ctx = resolver.resolve( "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext" )
-smgr = ctx.ServiceManager# get the central desktop object
+smgr = ctx.ServiceManager # get the central desktop object
 desktop = smgr.createInstanceWithContext( "com.sun.star.frame.Desktop",ctx) # access the current writer document
 model = desktop.getCurrentComponent()
 
