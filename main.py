@@ -72,8 +72,9 @@ CELL_MONTH_YEAR = "E7"
 CELL_PROJECT_NAME = "D7"
 
 
+## modul functions           use with care!! better use user functions below!
 
-def add_times(day_of_month: int, start: str, end: str, note=""):
+def _add_times(day_of_month: int, start: str, end: str, note=""):
 
     c_start = active_sheet.getCellRangeByName(COL_START + str(day_of_month+10))
     c_end = active_sheet.getCellRangeByName(COL_END + str(day_of_month+10))
@@ -86,16 +87,36 @@ def add_times(day_of_month: int, start: str, end: str, note=""):
 
 
 
-def add_from_gcal(month:int , query=""):
+def _add_from_gcal(month:int , query=""):
+    t = dt.today()
+    
+    print(f'Adding Appoinments for {month}/{t.strftime("%y")}')
     events = get_events_month(month,query)
     for i in events:
-        add_times(i.start.day, f"{i.start.hour}:{i.start.minute}", f"{i.end.hour}:{i.end.minute}",i.summary)
+        print( i.start.day," " ,i.start.month, f"{i.start.hour}:{i.start.minute}", f"{i.end.hour}:{i.end.minute}",i.summary)
 
-
-def add_datetime_times(date_start, date_end, note):
-    pass
-
-
+        _add_times(i.start.day, f"{i.start.hour}:{i.start.minute}", f"{i.end.hour}:{i.end.minute}",i.summary)
+        time.sleep(0.5)
 
 
 
+
+
+
+
+## user functions
+
+def add_from_gcal(query=""):
+    t= dt.today()
+    last_month = dt(t.year,t.month,1) - timedelta(days=1)
+    text1= f'Add appoinments for last month {last_month.strftime("%h%m")}  [y/n] default:yes'
+    choice= input(text1)
+    choice= choice.lower()
+    month = last_month
+
+    if (choice=="n" or choice == "no"):
+        month = input("Please enter the month as integer:")
+        _add_from_gcal(month,query)
+
+    else:
+        _add_from_gcal(month.month,query)

@@ -3,7 +3,7 @@
 ## todo
 
     - bei 00 kommt nur 0 in die tabelle..
-
+    - bei mehreren Terminen an einem Tag muss natürlich die zeit gesplittet werden.. oder einfach addiert
 
 
 
