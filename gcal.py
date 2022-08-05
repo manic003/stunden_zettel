@@ -37,7 +37,7 @@ def return_event_on_day(datetime_date):
             return i
 
 
-def get_events_month(month:int,query="",year=None):
+def get_events_month(month:int,query="",year=None,order_by="startTime"):
     """
         returns the events of calendar_arbeit for the given month, optional filtered by query parameter.
     
@@ -57,9 +57,9 @@ def get_events_month(month:int,query="",year=None):
 
 #    for i in calendar_arbeit.get_events(time_start, time_end):
     if query:
-        x = calendar_arbeit.get_events( beginn_of_month, end_of_month,query=query)
+        x = calendar_arbeit.get_events( beginn_of_month, end_of_month,query=query,order_by=order_by,single_events=True)
     else:
-        x = calendar_arbeit.get_events( beginn_of_month, end_of_month)
+        x = calendar_arbeit.get_events( beginn_of_month, end_of_month,order_by=order_by,single_events=True)
 
     return list(x)
     
