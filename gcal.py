@@ -7,12 +7,12 @@ from gcsa.event import Event
 from gcsa.google_calendar import GoogleCalendar
 from datetime import datetime as dt
 from datetime import timedelta
+import configparser
 
-calendar_haushalt = GoogleCalendar("regg900o16pp20bc9fcbnud2gg@group.calendar.google.com")
-calendar_arbeit= GoogleCalendar('raspmaxcal@gmail.com')
-
-start = dt(2022, 4, 1, 21, 0)
-end = dt(2020, 8, 3, 22, 0)
+config = configparser.ConfigParser()
+config.read("/home/max/.credentials/google_mail_accounts.meine_config")
+calendar_haushalt = GoogleCalendar(config["gcal-accounts"]["haushalt"])
+calendar_arbeit= GoogleCalendar(config["gcal-accounts"]["arbeit"])
 
 
 def add_termin(titel, start, end):

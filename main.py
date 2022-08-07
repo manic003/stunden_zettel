@@ -214,3 +214,5 @@ def add_from_gcal(query="Nachhilfe"):
 
 
 add_from_gcal()
+
+print("\n => type 'add_from_gcal()' if you want to load more events")

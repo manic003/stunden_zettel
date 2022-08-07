@@ -1,62 +1,38 @@
 
-# Stundenzettel - easy Stundenerfassung
-## todo
+# Stundenzettel Generator für die easy Stundenerfassung
+ Ein kleines Programm das die Termine aus dem GoogleCal importiert und daraus eine Abrechnung erstellt.
+ Das Programm öffnet ein libreoffice calc sheet und füllt es je nach Wahl im Terminal aus.
+ 
+ Speichern des Blattes und benennen muss selbst passieren, ggf Anpassungen an dem Sheet sind so möglich.
 
-    - bei 00 kommt nur 0 in die tabelle..
-    - bei mehreren Terminen an einem Tag muss natürlich die zeit gesplittet werden.. oder einfach addiert
+## Anpassungen:
 
+- der genutzte Google Calendar ist in `./credentials/google_mail_accounts.meine_config` definiert
+- im Code in `main.py` werden die Termine nach einem Suchbegriff gefiltert, in der Version hier ist das  **"Nachhilfe"** 
 
-
-
-
-
-
-
-
-
-
-
-
-
+## How to Use..
+- ausführen mit `python3 main.py` 
+- bestätige öffnen von libre office mit Enter
+- bestätige dass es geöffnet wurde (ist etwas unsauber programmiert.. python muss warten bis libreoffice wirklich offen ist bevor es weitergeht..)
+- weiter mit Enter, Fragen ggf `n` oder `no` beantworten (yes) ist immer default
+ 
 
 
+## Falls je weiter entwickeln:
+- Gute Dokumentation zur LibreOffice Uno-Api
+- https://www.openoffice.org/de/doc/entwicklung/python_bruecke.html#intro
+- noch viel mehr möglich..
+    - u.a einbinden in die GUI von Libre Office
+    - speichern als etc..
+    - exportieren als..
+    - uvm 
+
+## benutzte Quellen 
+- https://medium.com/analytics-vidhya/macro-programming-in-openoffice-libreoffice-with-using-python-en-a37465e9bfa5
+
+- https://github.com/rebahozkoc/libreofficepythonmacros
 
 
-
-
-
-
-
-## PLANUNG
-- Eingabe der Termine:
-    - automatisch aus googlecal
-    - manuell per command line / gui ?
-    - csv einlesen
-    - text datei einlesen?
-
-
-
-    dieses basis ding geht schon so ... jetzt muss nur noch das google cal zeug rein um die termine zu importieren..
-    
-    dann wär das Benutzen der Anwendungen wie folgt..
-    
-    Python Skript starten...
-        - es öffnet sich die libre office tabelle
-        - mit kleiner verzögerung damit man sie sieht werden die Termine eingefügt
-        - man kann selbst noch manuell in excel was ergänzen
-        - dann speichern und fertig
-    
-        -----------------
-        ADD ONS
-        gui steuerung oder so zum schnell mit arbeiten.. aber das dauert alles dann noch ewig..
-    
-    todo:
-    
-    dd.yyyy so ausfüllen wies sinn macht und auch schon speichern untern vor bereiten..
-    dann fertig speichern und auch als pdf exportieren
-
-
-
-https://medium.com/analytics-vidhya/macro-programming-in-openoffice-libreoffice-with-using-python-en-a37465e9bfa5
-
-https://github.com/rebahozkoc/libreofficepythonmacros
+## Arbeitsaufwand
+- 6 h arbeitszeit inkl. recherche,schreiben, testen etc  
+- 2 h für fein schliff und optische verschönerungen
