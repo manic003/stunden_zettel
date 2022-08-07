@@ -16,6 +16,31 @@ COL_DURATION = "D"
 CELL_MONTH_YEAR = "E7"
 CELL_PROJECT_NAME = "D7"
 
+## customize cmdline
+BRIGHT_FONT = "\033[1;1m"
+NORMAL_FONT = "\033[1;0m"
+Red    = "\u001b[31m"
+Green  = "\u001b[32m"
+Yellow = "\u001b[33m"
+Reset  = "\u001b[0m"
+
+Bold = "\u001b[1m"
+Underline = "\u001b[4m"
+Reversed  = "\u001b[7m"
+
+ClearScreen = "\u001b[2J"
+#ClearScreen = "\u001b[{n}J"
+#        n=0 clears from cursor until end of screen,
+#        n=1 clears from cursor to beginning of screen
+#        n=2 clears entire screen
+
+ClearLine = "\u001b2K"
+#ClearLine = "\u001b[{n}K"
+#        n=0 clears from cursor to end of line
+#        n=1 clears from cursor to start of line
+#        n=2 clears entire line
+
+Y_N_CHOICE =  f"{Yellow} [y/n] default yes:   {Reset}"
 
 def clean_exit():
     try:
@@ -31,8 +56,10 @@ def signal_handler(sig, frame):
 atexit.register(clean_exit)
 signal.signal(signal.SIGINT, signal_handler)
 
+print(ClearScreen)
 
-choice= input("Run libreoffice? [y/n] default yes:   ")
+text = f"Run libreoffice? {Y_N_CHOICE}"
+choice= input(text)
 
 if not (choice == "n" or choice=="no"):
 # open sheet in libreoffice...
@@ -138,7 +165,8 @@ def _add_from_gcal(month:int , query=""):
     for i in day_dict.values():
         if len(i) > 1:
             for j in i:
-                text= f"add --> {j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02}\t{j.summary} ?  "
+                text= f"   {Reversed}{j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02} {j.summary}{Reset}\t -> add? {Y_N_CHOICE}"
+
                 choice = input(text)
                 choice = choice.lower()
                 if not (choice == "no" or choice == "n"):
@@ -149,7 +177,7 @@ def _add_from_gcal(month:int , query=""):
         # if just one appoinment in list(= just one appoinment at this day), add just the times to sheet, and let libreoffice calculate the duration field 
         else:
             for j in i:
-                text= f"add --> {j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02}\t{j.summary} ?  "
+                text= f"   {Reversed}{j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02} {j.summary}{Reset}\t -> add? {Y_N_CHOICE}"
                 choice = input(text)
                 choice = choice.lower()
                 if not (choice == "no" or choice == "n"):
@@ -157,7 +185,7 @@ def _add_from_gcal(month:int , query=""):
 
                 else:
                     print("skipped this appoinment ")
-
+        print("")
 
 ## user functions
 
@@ -165,7 +193,7 @@ def add_from_gcal(query="Nachhilfe"):
 
     t= dt.today()
     last_month = dt(t.year,t.month,1) - timedelta(days=1)
-    text1= f'Add appoinments for last month {last_month.strftime("%h%m")}?  [y/n] default:yes    '
+    text1= f'Add appoinments for last month {last_month.strftime("%h%m")}? {Y_N_CHOICE}'
     choice= input(text1)
     choice= choice.lower()
     month = last_month
