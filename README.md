@@ -22,8 +22,12 @@
 - siehe Beispiel `cmdline_usageTODO.py`:
     - ´main.py´ entsprechend anpassen das man es über die cmdline ausführen kann
     - mit option `--fast` `--query="Nachhilfe"` etc.
-    - ... 
+    - ... siehe args.py..
+    - danach kroenung mit autocomplete.. -> https://stackoverflow.com/questions/14597466/custom-tab-completion-in-python-argparse 
 
+
+- besser als das oben argparse..
+- siehe https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument
 ## Falls je weiter entwickeln:
 - Gute Dokumentation zur LibreOffice Uno-Api
 - https://www.openoffice.org/de/doc/entwicklung/python_bruecke.html#intro
