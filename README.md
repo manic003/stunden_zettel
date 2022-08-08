@@ -17,6 +17,12 @@
 - weiter mit Enter, Fragen ggf `n` oder `no` beantworten (yes) ist immer default
  
 
+## TODO
+
+- siehe Beispiel `cmdline_usageTODO.py`:
+    - ´main.py´ entsprechend anpassen das man es über die cmdline ausführen kann
+    - mit option `--fast` `--query="Nachhilfe"` etc.
+    - ... 
 
 ## Falls je weiter entwickeln:
 - Gute Dokumentation zur LibreOffice Uno-Api
