@@ -14,6 +14,7 @@ import argcomplete
 
 
 def main(**args):
+    print("ARGS=\n\t",args)
     pass
 
     
@@ -29,7 +30,7 @@ if __name__ == "__main__":
     #                     )
 
 
-    parser.add_argument('-f','--fast', help='Execute in fast mode. The events will be imported straight, there will be no confirmation necessary through cmdline')
+    parser.add_argument('-f','--fast', help='Execute in fast mode. The events will be imported straight, there will be no confirmation necessary through cmdline',action="store_true")
     parser.add_argument('-q=','--query=', help='Events will be filtered by this string. (CaseINsensitiv -> Office = office)',metavar="SearchKeyword",default="Nachhilfe")
     parser.add_argument('-m=','--month=',type=int, help='The month (1-12) for which the billing timesheet should be generated. Default is last month.',metavar="month",default="-1")
 
@@ -38,3 +39,4 @@ if __name__ == "__main__":
 
     args=parser.parse_args()
     main(**vars(args))
+    
