@@ -3,12 +3,7 @@ import argparse
 import argcomplete
 import textwrap
 
-description = 'A simple script to import and write googlecalendar events to an libreoffice-calc sheet.'
-wrapper = textwrap.TextWrapper(len(description))
-
-epilog = "The program will open libreoffice, and fill out the sheet, at any time you can edit the sheet by yourself and quit the program with ctrl-d. (You might leave a loop with ctrl-c before) As   this script is intended to be used side by side with libreoffice open, so you can control the import of appoinments there is one important note just  as any LibreOffice sheet...:"
-
-epilog = wrapper.fill(epilog)
+wrapper = textwrap.TextWrapper()
 
 def main(**args):
     print("ARGS=\n\t",args)
@@ -17,17 +12,21 @@ def main(**args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='BillingTimesheetGenerator',
              formatter_class=argparse.RawDescriptionHelpFormatter,
-             description=description,
-             epilog = textwrap.dedent(f'''\
+             description='A simple script to import and write googlecalendar events to an libreoffice-calc sheet.',
+             epilog = textwrap.dedent('''\
 
-{epilog}
+        The program will open libreoffice, and fill  out the sheet, at any  time you
+        can edit the sheet by yourself and  quit the program with ctrl-d. (You might
+        leave a loop with ctrl-c before) As this script is intended to  be used side
+        by side with libreoffice open, so you can control the import  of appoinments
+        there is one important note just as any LibreOffice sheet...:
 
-     YOU NEED TO SAVE THE SHEET BY YOURSELF!
+                        'YOU NEED TO SAVE THE SHEET BY YOURSELF!
 
-TODO If you use the -straigt-mode this is of course not the case.
+        TODO If you use the -straigt-mode this is of course not the case.
 
-author: Max Nicolay
-date:   11/08/2022'''))
+        author: Max Nicolay
+        date:   11/08/2022'''))
 
 
 
@@ -41,4 +40,4 @@ date:   11/08/2022'''))
 
     args=parser.parse_args()
     main(**vars(args))
-
+    
