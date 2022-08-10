@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import time
 import uno # get the uno component context from the PyUNO runtime
@@ -6,7 +8,9 @@ from gcal import *
 import atexit
 import signal
 import sys
+import argument_parser as arg_parser
 
+args = arg_parser.args
 ODS_TEMPLATE = "ods_files/template/template.ods"  # path to libreoffice calc file
 # relevant columns and cells of the sheet
 COL_START = "B"
@@ -58,8 +62,12 @@ signal.signal(signal.SIGINT, signal_handler)
 
 print(ClearScreen)
 
-text = f"Run libreoffice? {Y_N_CHOICE}"
-choice= input(text)
+if not args.fast:
+
+    text = f"Run libreoffice? {Y_N_CHOICE}"
+    choice= input(text)
+else:
+    choice = "yes"
 
 if not (choice == "n" or choice=="no"):
 # open sheet in libreoffice...
@@ -166,9 +174,13 @@ def _add_from_gcal(month:int , query=""):
         if len(i) > 1:
             for j in i:
                 text= f"   {Reversed}{j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02} {j.summary}{Reset}\t -> add? {Y_N_CHOICE}"
+                if not args.fast:
+                    choice = input(text)
+                    choice = choice.lower()
+                else:
+                    choice = "yes"
+                    print("added: ",text.split("->")[0], "\n")
 
-                choice = input(text)
-                choice = choice.lower()
                 if not (choice == "no" or choice == "n"):
                     _add_values(day_of_month=j.start.day, start=f"{j.start.hour:02}:{j.start.minute:02}",end= f"{j.end.hour:02}:{j.end.minute:02}", duration_plus= (j.end -j.start).total_seconds()/3600 )
                 else:
@@ -178,8 +190,13 @@ def _add_from_gcal(month:int , query=""):
         else:
             for j in i:
                 text= f"   {Reversed}{j.start.day:02}.{j.start.month:02} {j.start.hour:02}:{j.start.minute:02}-{j.end.hour:02}:{j.end.minute:02} {j.summary}{Reset}\t -> add? {Y_N_CHOICE}"
-                choice = input(text)
-                choice = choice.lower()
+                if not args.fast:
+                    choice = input(text)
+                    choice = choice.lower()
+                else:
+                    choice = "yes"
+                    print("added: ",text.split("->")[0], "\n")
+
                 if not (choice == "no" or choice == "n"):
                     _add_times(day_of_month=j.start.day, start=f"{j.start.hour:02}:{j.start.minute:02}",end= f"{j.end.hour:02}:{j.end.minute:02}" ,note=j.summary)
 
@@ -189,20 +206,27 @@ def _add_from_gcal(month:int , query=""):
 
 ## user functions
 
-def add_from_gcal(query="Nachhilfe"):
+def add_from_gcal(query="Nachhilfe",month="default"):
+    if month == -1:
+        month = "default"
 
     t= dt.today()
     last_month = dt(t.year,t.month,1) - timedelta(days=1)
-    text1= f'Add appoinments for last month {last_month.strftime("%h%m")}? {Y_N_CHOICE}'
-    choice= input(text1)
-    choice= choice.lower()
-    month = last_month
+    if month == "default":
+        text1= f'Add appoinments for last month {last_month.strftime("%h%m")}? {Y_N_CHOICE}'
+        choice= input(text1)
+        choice= choice.lower()
+        month = last_month
 
+    else:
+        choice = "n"
 
     # if user wants a differnt month.. 
     # TODO add special case user wants a month from an old year (unlikely)
     if (choice=="n" or choice == "no"):
-        month = input("Please enter the month as integer: ")
+        if month== "default":
+            month = input("Please enter the month as integer: ")
+
         _add_from_gcal(int(month),query)
         active_sheet.getCellRangeByName(CELL_MONTH_YEAR).String = f"{int(month):02}/{t.year}"
 
@@ -213,6 +237,6 @@ def add_from_gcal(query="Nachhilfe"):
 
 
 
-add_from_gcal()
+add_from_gcal(query=args.query,month=args.month)
 
 print("\n => type 'add_from_gcal()' if you want to load more events")
