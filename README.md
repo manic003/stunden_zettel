@@ -11,6 +11,10 @@
 - im Code in `main.py` werden die Termine nach einem Suchbegriff gefiltert, in der Version hier ist das  **"Nachhilfe"** 
 
 ## How to Use..
+
+- run via console as './'
+
+## alt.. mit python geht auch
 - ausführen mit `python3 main.py` 
 - bestätige öffnen von libre office mit Enter
 - bestätige dass es geöffnet wurde (ist etwas unsauber programmiert.. python muss warten bis libreoffice wirklich offen ist bevor es weitergeht..)
