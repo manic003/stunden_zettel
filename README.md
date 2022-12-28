@@ -5,14 +5,12 @@
  
  Speichern des Blattes und benennen muss selbst passieren, ggf Anpassungen an dem Sheet sind so möglich.
 
+- der genutzte Google Calendar ist in `./credentials/google_mail_accounts.meine_config` definiert
+- im Code in ```main.py``` werden die Termine nach einem Suchbegriff gefiltert, in der Version hier ist default  **"Nachhilfe"** 
+
 
 ![example1](./_resources/example1.png)
 
-
-## Anpassungen:
-
-- der genutzte Google Calendar ist in `./credentials/google_mail_accounts.meine_config` definiert
-- im Code in `main.py` werden die Termine nach einem Suchbegriff gefiltert, in der Version hier ist das  **"Nachhilfe"** 
 
 ## Setup
 
