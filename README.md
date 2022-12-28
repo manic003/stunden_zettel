@@ -5,34 +5,63 @@
  
  Speichern des Blattes und benennen muss selbst passieren, ggf Anpassungen an dem Sheet sind so möglich.
 
+
+![example1](./_resources/example1.png)
+
+
 ## Anpassungen:
 
 - der genutzte Google Calendar ist in `./credentials/google_mail_accounts.meine_config` definiert
 - im Code in `main.py` werden die Termine nach einem Suchbegriff gefiltert, in der Version hier ist das  **"Nachhilfe"** 
 
+## Setup
+
+- you will need to setup the google mail, the quickstart only takes a few minutes:  https://developers.google.com/gmail/api/quickstart/python
+
 ## How to Use..
 
-- run via console as './'
 
-## alt.. mit python geht auch
-- ausführen mit `python3 main.py` 
+```
+usage: BillingTimesheetGenerator [-h] [-f] [-q SearchKeyword] [-m month]
+
+A simple script to import and write googlecalendar events to an libreoffice-calc sheet.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f, --fast            Execute in fast mode. The events will be imported straight, there will be no confirmation necessary through cmdline
+  -q SearchKeyword, --query SearchKeyword
+                        Events will be filtered by this string. (CaseINsensitiv -> Office = office)
+  -m month, --month month
+                        The month (1-12) for which the billing timesheet should be generated. Default is last month.
+
+The program will open libreoffice, and fill out the sheet, at any time you can edit the
+sheet by yourself and quit the program with ctrl-d. (You might leave a loop with ctrl-c
+before) As   this script is intended to be used side by side with libreoffice open, so
+you can control the import of appoinments there is one important note just  as any
+LibreOffice sheet...:
+
+ YOU NEED TO SAVE THE SHEET BY YOURSELF!
+
+TODO If you use the -straigt-mode this is of course not the case.
+
+author: Max Nicolay
+date:   11/08/2022
+
+```
+
+
+- run via console as './main.py' or python3 main.py 
 - bestätige öffnen von libre office mit Enter
 - bestätige dass es geöffnet wurde (ist etwas unsauber programmiert.. python muss warten bis libreoffice wirklich offen ist bevor es weitergeht..)
 - weiter mit Enter, Fragen ggf `n` oder `no` beantworten (yes) ist immer default
  
 
-## TODO
+## CANdo
 
-- siehe Beispiel `cmdline_usageTODO.py`:
-    - ´main.py´ entsprechend anpassen das man es über die cmdline ausführen kann
-    - mit option `--fast` `--query="Nachhilfe"` etc.
-    - ... siehe args.py..
-    - danach kroenung mit autocomplete.. -> https://stackoverflow.com/questions/14597466/custom-tab-completion-in-python-argparse 
+- add autocomplete.. -> https://stackoverflow.com/questions/14597466/custom-tab-completion-in-python-argparse 
 
 
-- besser als das oben argparse..
-- siehe https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_argument
-## Falls je weiter entwickeln:
+### Falls je weiter entwickeln:
 - Gute Dokumentation zur LibreOffice Uno-Api
 - https://www.openoffice.org/de/doc/entwicklung/python_bruecke.html#intro
 - noch viel mehr möglich..
