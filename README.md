@@ -72,8 +72,3 @@ date:   11/08/2022
 - https://medium.com/analytics-vidhya/macro-programming-in-openoffice-libreoffice-with-using-python-en-a37465e9bfa5
 
 - https://github.com/rebahozkoc/libreofficepythonmacros
-
-
-## Arbeitsaufwand
-- 6 h arbeitszeit inkl. recherche,schreiben, testen etc  
-- 2 h für fein schliff und optische verschönerungen
